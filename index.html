@@ -142,6 +142,36 @@ td:first-child{color:var(--muted);width:44%}
 .shots img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:top}
 @media (max-width:820px){.proof{grid-template-columns:1fr}.shots{grid-template-columns:1fr 1fr}}
 
+/* start in your tool */
+.startgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;align-items:start}
+.startgrid figure{margin:0}
+.rt{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;margin-bottom:10px}
+.rt .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan)}
+.rt .dot.tan{background:var(--tan)}
+.startgrid .term{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#15161f}
+.startgrid .term img{width:100%;display:block}
+.startgrid figcaption{color:var(--muted);font-size:15px;margin-top:12px;line-height:1.5}
+.startgrid figcaption code{font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:5px;color:var(--ink)}
+.startnote{margin-top:26px;color:var(--muted);font-size:15px}
+.startnote code{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+
+/* report card + language toggle */
+.reportfig{margin:0}
+.toggle{display:inline-flex;gap:0;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
+.toggle button{font:600 13px var(--display);color:var(--muted);background:transparent;border:0;padding:7px 16px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.reportshell{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel,#071F45)}
+.reportshell img{width:100%;display:block}
+.underhood{margin-top:34px;border-top:1px dashed var(--line);padding-top:16px}
+.underhood summary{cursor:pointer;color:var(--muted);font-size:14.5px;font-weight:600;list-style:none}
+.underhood summary::-webkit-details-marker{display:none}
+.underhood summary::before{content:"▸ ";color:var(--dim)}
+.underhood[open] summary::before{content:"▾ "}
+.underhood .gif{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:760px}
+.underhood .gif img{width:100%;display:block}
+.underhood p{color:var(--dim);font-size:13.5px;margin-top:8px}
+@media (max-width:820px){.startgrid{grid-template-columns:1fr}}
+
 /* works-with strip */
 .workswith{margin:0 0 6px;color:var(--dim);font-size:14.5px}
 .workswith b{color:var(--muted);font-weight:600}
@@ -200,8 +230,8 @@ footer small{color:var(--dim)}
     <a class="brand" href="#"><img src="favicon.png" alt="" width="30" height="30">TestBeagle</a>
     <ul>
       <li><a href="#how">How it works</a></li>
-      <li><a href="#proof">Example run</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#start">Start</a></li>
+      <li><a href="#proof">Report</a></li>
       <li><a href="#install">Install</a></li>
       <li><a href="https://github.com/TestBeagle/TestBeagle">GitHub</a></li>
     </ul>
@@ -261,14 +291,37 @@ footer small{color:var(--dim)}
     </div>
   </section>
 
+  <section id="start" aria-labelledby="start-title">
+    <div class="wrap">
+      <h2 id="start-title">Start in your tool.</h2>
+      <p class="lede">Open your coding agent in the repo you want to test, then say the word. It shows you a plan first and waits — nothing runs until you approve.</p>
+      <div class="startgrid">
+        <figure>
+          <div class="rt"><span class="dot"></span>Claude Code</div>
+          <div class="term"><img src="start-claude.gif" alt="In Claude Code: typing /beagle opens plan mode with the route map (9 routes, agent-browser driver, report to docs/qa, and what it won't verify yet), you approve, and it writes the report" loading="lazy" width="880" height="356"></div>
+          <figcaption>Type <code>/beagle</code>, approve the route map, read the report. One word more — <code>/beagle security</code> — jumps straight to a skill.</figcaption>
+        </figure>
+        <figure>
+          <div class="rt"><span class="dot tan"></span>Codex CLI</div>
+          <div class="term"><img src="start-codex.gif" alt="In Codex: asking in plain language, the agent posts a plan and the confirmation line, you say yes, and it writes the report" loading="lazy" width="880" height="236"></div>
+          <figcaption>Just ask in plain language, in English or Korean. The agent posts the plan, waits for your OK, then runs.</figcaption>
+        </figure>
+      </div>
+      <p class="startnote">Representative of a real run; the route map, driver, and report path are the actual ones from the <a href="https://github.com/TestBeagle/TestBeagle/tree/main/docs/examples/juice-shop">Juice Shop example</a>. Other runtimes (Cursor, Gemini CLI, Copilot) read the same skills from <code>~/.agents</code>. <a href="#install">Install →</a></p>
+    </div>
+  </section>
+
   <section id="proof" aria-labelledby="proof-title">
     <div class="wrap">
-      <h2 id="proof-title">What a real run looks like.</h2>
-      <p class="lede">Not a mock-up. This is TestBeagle against OWASP Juice Shop, an app that is vulnerable by design, driven live with no browser MCP.</p>
+      <h2 id="proof-title">What you get: an evidence-based report.</h2>
+      <p class="lede">The real breachsweep report from that run. Every claim cites the command it came from, and everything it could not prove is listed as unverified. Korean by default, English or another language on request.</p>
       <div class="proof">
-        <figure>
-          <div class="gif"><img src="demo.gif" alt="Terminal recording: TestBeagle checks the app version, drives the login form with agent-browser, finds the exposed /ftp listing, and lists the vulnerability classes it refuses to claim" loading="lazy" width="1180" height="520"></div>
-          <figcaption>Real commands, real output, recorded end to end.</figcaption>
+        <figure class="reportfig">
+          <div class="toggle" role="group" aria-label="Report language">
+            <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+            <button type="button" data-lang="en" aria-pressed="false">English</button>
+          </div>
+          <div class="reportshell"><img id="reportimg" src="report-ko.png" alt="A breachsweep report: the /ftp HIGH finding with its reproduction command, and the Unverified table leaving SQL injection, XSS, and IDOR unclaimed on an app that is vulnerable by design" loading="lazy"></div>
         </figure>
         <div>
           <ul class="found">
@@ -276,8 +329,7 @@ footer small{color:var(--dim)}
             <li><b><span class="tag crit">a11y</span>Form input with no accessible label</b><span>axe-core, injected into the live page, flagged it on every audited route with the exact node.</span></li>
             <li><b><span class="tag skip">UNVERIFIED</span>SQL injection, XSS, IDOR</b><span>All present by design. TestBeagle left them in the unverified column instead of claiming them, because a non-destructive run cannot prove them. It never counts an unexercised path as a pass.</span></li>
           </ul>
-          <div class="cta-row"><a class="btn ghost" href="https://github.com/TestBeagle/TestBeagle/tree/main/docs/examples/juice-shop">Read the full reports</a></div>
-          <p class="workswith" style="margin-top:16px">Reports are written in Korean by default. Ask for English and you get English.</p>
+          <div class="cta-row"><a class="btn ghost" href="https://github.com/TestBeagle/TestBeagle/tree/main/docs/examples/juice-shop">Read the full reports — 한국어 · English</a></div>
         </div>
       </div>
       <div class="shots">
@@ -285,6 +337,11 @@ footer small{color:var(--dim)}
         <a href="https://github.com/TestBeagle/TestBeagle/tree/main/docs/examples/juice-shop/screenshots"><img src="shots/basket.png" alt="Logged-in basket, proving the real login flow" loading="lazy"></a>
         <a href="https://github.com/TestBeagle/TestBeagle/tree/main/docs/examples/juice-shop/screenshots"><img src="shots/score-board.png" alt="Juice Shop score board" loading="lazy"></a>
       </div>
+      <details class="underhood">
+        <summary>Under the hood: the real commands, start to finish</summary>
+        <div class="gif"><img src="demo.gif" alt="Terminal recording: checking the app version, driving the login form with agent-browser, finding the exposed /ftp listing, and listing the vulnerability classes it refuses to claim" loading="lazy" width="1180" height="520"></div>
+        <p>The same run at the shell level — preflight, agent-browser driving the app, the /ftp finding, and the refusal table.</p>
+      </details>
     </div>
   </section>
 
@@ -423,6 +480,14 @@ cd TestBeagle
 </footer>
 
 <script>
+var reportImg=document.getElementById('reportimg');
+document.querySelectorAll('.toggle button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.toggle button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+    b.setAttribute('aria-pressed','true');
+    if(reportImg) reportImg.src='report-'+b.getAttribute('data-lang')+'.png';
+  });
+});
 document.querySelectorAll('[data-copy]').forEach(function(b){
   b.addEventListener('click',function(){
     var t=b.closest('.cmd').querySelector('code').innerText;
