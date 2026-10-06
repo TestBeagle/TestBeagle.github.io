@@ -160,8 +160,12 @@ td:first-child{color:var(--muted);width:44%}
 .toggle{display:inline-flex;gap:0;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-bottom:14px}
 .toggle button{font:600 13px var(--display);color:var(--muted);background:transparent;border:0;padding:7px 16px;cursor:pointer}
 .toggle button[aria-pressed="true"]{background:var(--blue);color:#fff}
-.reportshell{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel,#071F45)}
-.reportshell img{width:100%;display:block}
+.reportshell{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel,#071F45)}
+.reportscroll{max-height:560px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.reportscroll img{width:100%;display:block}
+.reportshell::after{content:"";position:absolute;left:0;right:0;bottom:0;height:54px;background:linear-gradient(to bottom,rgba(0,26,63,0),var(--navy));pointer-events:none}
+.reporthint{color:var(--dim);font-size:13px;margin-top:11px}
+@media (max-width:820px){.reportscroll{max-height:64vh}}
 .underhood{margin-top:34px;border-top:1px dashed var(--line);padding-top:16px}
 .underhood summary{cursor:pointer;color:var(--muted);font-size:14.5px;font-weight:600;list-style:none}
 .underhood summary::-webkit-details-marker{display:none}
@@ -313,15 +317,16 @@ footer small{color:var(--dim)}
 
   <section id="proof" aria-labelledby="proof-title">
     <div class="wrap">
-      <h2 id="proof-title">What you get: an evidence-based report.</h2>
-      <p class="lede">The real breachsweep report from that run. Every claim cites the command it came from, and everything it could not prove is listed as unverified. Korean by default, English or another language on request.</p>
+      <h2 id="proof-title">What you get: a full, detailed report.</h2>
+      <p class="lede">Not a teaser — the entire bugsweep report from that run, scrollable below. The route-coverage table (which routes, in which states, with what result), every finding with its evidence, and an explicit list of everything it could not verify. breachsweep and a11ysweep read the same way. Korean by default, English or another language on request.</p>
       <div class="proof">
         <figure class="reportfig">
           <div class="toggle" role="group" aria-label="Report language">
             <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
             <button type="button" data-lang="en" aria-pressed="false">English</button>
           </div>
-          <div class="reportshell"><img id="reportimg" src="report-ko.png" alt="A breachsweep report: the /ftp HIGH finding with its reproduction command, and the Unverified table leaving SQL injection, XSS, and IDOR unclaimed on an app that is vulnerable by design" loading="lazy"></div>
+          <div class="reportshell"><div class="reportscroll"><img id="reportimg" src="report-full-ko.png" alt="The full bugsweep report: environment, a summary with route coverage (9 of 41 routes) and six unverified items, the complete route-coverage table across states and variants, findings with evidence, and the unverified table listing registration, checkout, 2FA, admin, locale, and theme"></div></div>
+          <p class="reporthint">↕ Scroll the report — this is the whole thing, every route and every unverified item.</p>
         </figure>
         <div>
           <ul class="found">
@@ -485,7 +490,7 @@ document.querySelectorAll('.toggle button').forEach(function(b){
   b.addEventListener('click',function(){
     document.querySelectorAll('.toggle button').forEach(function(x){x.setAttribute('aria-pressed','false')});
     b.setAttribute('aria-pressed','true');
-    if(reportImg) reportImg.src='report-'+b.getAttribute('data-lang')+'.png';
+    if(reportImg){ reportImg.src='report-full-'+b.getAttribute('data-lang')+'.png'; var sc=reportImg.closest('.reportscroll'); if(sc) sc.scrollTop=0; }
   });
 });
 document.querySelectorAll('[data-copy]').forEach(function(b){
