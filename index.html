@@ -38,7 +38,7 @@ body{margin:0;background:var(--navy);color:var(--ink);font-family:var(--display)
 a{color:var(--cyan);text-decoration-thickness:1px;text-underline-offset:3px}
 a:hover{color:#fff}
 :focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:4px}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 code,pre,kbd{font-family:var(--mono)}
 h1,h2,h3{margin:0;line-height:1.08;letter-spacing:-.01em;font-weight:800}
 h2{font-size:clamp(28px,3.4vw,40px);max-width:22ch}
@@ -143,7 +143,7 @@ td:first-child{color:var(--muted);width:44%}
 @media (max-width:820px){.proof{grid-template-columns:1fr}.shots{grid-template-columns:1fr 1fr}}
 
 /* start in your tool */
-.startgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;align-items:start}
+.startgrid{display:grid;grid-template-columns:1fr;gap:36px;margin-top:40px;max-width:900px}
 .startgrid figure{margin:0}
 .rt{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;margin-bottom:10px}
 .rt .dot{width:9px;height:9px;border-radius:50%;background:var(--cyan)}
@@ -174,7 +174,6 @@ td:first-child{color:var(--muted);width:44%}
 .underhood .gif{margin-top:14px;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:760px}
 .underhood .gif img{width:100%;display:block}
 .underhood p{color:var(--dim);font-size:13.5px;margin-top:8px}
-@media (max-width:820px){.startgrid{grid-template-columns:1fr}}
 
 /* works-with strip */
 .workswith{margin:0 0 6px;color:var(--dim);font-size:14.5px}
@@ -302,12 +301,12 @@ footer small{color:var(--dim)}
       <div class="startgrid">
         <figure>
           <div class="rt"><span class="dot"></span>Claude Code</div>
-          <div class="term"><img src="start-claude.gif" alt="In Claude Code: typing /beagle opens plan mode with the route map (9 routes, agent-browser driver, report to docs/qa, and what it won't verify yet), you approve, and it writes the report" loading="lazy" width="880" height="356"></div>
+          <div class="term"><img src="start-claude.gif" alt="In Claude Code: typing /beagle opens plan mode with the route map (9 routes, agent-browser driver, report to docs/qa, and what it won't verify yet), you approve, and it writes the report" loading="lazy" width="1200" height="558"></div>
           <figcaption>Type <code>/beagle</code>, approve the route map, read the report. One word more — <code>/beagle security</code> — jumps straight to a skill.</figcaption>
         </figure>
         <figure>
           <div class="rt"><span class="dot tan"></span>Codex CLI</div>
-          <div class="term"><img src="start-codex.gif" alt="In Codex: asking in plain language, the agent posts a plan and the confirmation line, you say yes, and it writes the report" loading="lazy" width="880" height="236"></div>
+          <div class="term"><img src="start-codex.gif" alt="In Codex: asking in plain language, the agent posts a plan and the confirmation line, you say yes, and it writes the report" loading="lazy" width="1200" height="340"></div>
           <figcaption>Just ask in plain language, in English or Korean. The agent posts the plan, waits for your OK, then runs.</figcaption>
         </figure>
       </div>
